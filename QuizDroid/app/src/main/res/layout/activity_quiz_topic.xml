@@ -20,12 +20,13 @@
             android:text="Quiz Topics:"
             android:textSize="30sp"/>
         <ListView
+            android:id="@+id/quizlist"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10sp"
-            android:id="@+id/quizlist" />
+            />
 
     </LinearLayout>
 

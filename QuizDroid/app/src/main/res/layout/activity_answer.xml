@@ -25,33 +25,51 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:height="25sp"
             android:textSize="25sp"
             android:text="(question)"/>
         <TextView
+            android:id="@+id/ans1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:layout_marginTop="15sp"
             android:text="answer_1"/>
         <TextView
+            android:id="@+id/ans2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:layout_marginTop="15sp"
             android:text="answer_2"/>
         <TextView
+            android:id="@+id/ans3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:layout_marginTop="15sp"
             android:text="answer_3"/>
         <TextView
+            android:id="@+id/ans4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
             android:layout_marginTop="15sp"
             android:text="answer_4"/>
+
+        <TextView
+            android:id="@+id/score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_marginTop="25sp"
+        android:text="score"/>
+
+        <Button
+            android:id="@+id/quiz_continue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Continue Quiz"
+            android:onClick=""/>
 
     </LinearLayout>
 </LinearLayout>

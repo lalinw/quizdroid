@@ -4,15 +4,17 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+
 public class QuizTopicActivity extends AppCompatActivity {
 
-    private String[] dwarves = new String[]{
+    private String[] topics = new String[]{
             "Math", "Physics", "Marvel Super Heroes", "Other stuff"
     };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +26,21 @@ public class QuizTopicActivity extends AppCompatActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                     android.R.layout.simple_list_item_1,
                     android.R.id.text1,
-                    dwarves);
+                    topics);
             listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Intent intent = new Intent(QuizTopicActivity.this, TopicOverviewActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     public void toQuizPage(View view) {
-        Intent intent = new Intent(this, OtherActivity.class);
+        Intent intent = new Intent(this, TopicOverviewActivity.class);
         startActivity(intent);
     }
 }
