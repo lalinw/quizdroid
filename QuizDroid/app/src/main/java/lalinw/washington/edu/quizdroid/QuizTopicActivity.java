@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class QuizTopicActivity extends AppCompatActivity {
@@ -33,16 +34,14 @@ public class QuizTopicActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
 
+                String entry = parent.getItemAtPosition(position).toString();
                 //pass in info about topic overview, amount of questions, questions, correct answers
                 Intent intent = new Intent(QuizTopicActivity.this, TopicOverviewActivity.class);
+                intent.putExtra("topic", entry);
                 startActivity(intent);
             }
         });
 
     }
 
-    public void toQuizPage(View view) {
-        Intent intent = new Intent(this, TopicOverviewActivity.class);
-        startActivity(intent);
-    }
 }
