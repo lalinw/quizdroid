@@ -31,24 +31,26 @@ public class QuestionActivity extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.ans1:
                 if (checked)
-                    // Pirates are the best
+                    //choice 1
                     break;
             case R.id.ans2:
                 if (checked)
-                    // Ninjas rule
+                    // choice 2
                     break;
             case R.id.ans3:
                 if (checked)
-                    // Ninjas rule
+                    // choice 3
                     break;
             case R.id.ans4:
                 if (checked)
-                    // Ninjas rule
+                    // choice 4
                     break;
         }
     }
 
     public void submitAnswer(View view) {
+        //displays questions and answers
+        //keeps track of previous answers
         Intent intent = new Intent(this, AnswerActivity.class);
         startActivity(intent);
     }

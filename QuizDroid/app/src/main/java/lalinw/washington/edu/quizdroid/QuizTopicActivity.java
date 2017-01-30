@@ -32,6 +32,8 @@ public class QuizTopicActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
+
+                //pass in info about topic overview, amount of questions, questions, correct answers
                 Intent intent = new Intent(QuizTopicActivity.this, TopicOverviewActivity.class);
                 startActivity(intent);
             }

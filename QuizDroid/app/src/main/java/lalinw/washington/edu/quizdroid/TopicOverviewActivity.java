@@ -11,9 +11,12 @@ public class TopicOverviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic_overview);
+
+        //displays description, # of questions
     }
 
     public void beginQuiz(View view) {
+        //pass the topic and question info
         Intent intent = new Intent(this, QuestionActivity.class);
         startActivity(intent);
     }
