@@ -78,7 +78,7 @@ public class QuestionActivity extends AppCompatActivity {
         //keeps track of previous answers
         Intent intent = new Intent(this, AnswerActivity.class);
         intent.putExtra("input", input);
-        intent.putExtra("qnum", "");
+        intent.putExtra("qnum", "notlast");
         intent.putExtra("score", score);
         intent.putExtra("ques", "This is question one.");
         startActivity(intent);

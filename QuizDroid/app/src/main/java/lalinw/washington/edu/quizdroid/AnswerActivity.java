@@ -4,18 +4,17 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.Arrays;
-import java.util.List;
+
 
 public class AnswerActivity extends AppCompatActivity {
 
-    Bundle extras;
+    String newScore;
+    boolean lastQ = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +22,12 @@ public class AnswerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_answer);
 
         //receive
-        extras = getIntent().getExtras();
+        Bundle extras = getIntent().getExtras();
         if (extras != null) {
+
+            //progress
+            String lastOrNo = extras.getString("qnum");
+            lastQ = lastOrNo.equalsIgnoreCase("last");
 
             //display question + choices
             String ques = extras.getString("ques");
@@ -40,18 +43,18 @@ public class AnswerActivity extends AppCompatActivity {
             ans4.setText("wrong answer");
 
             //displays score
-            String currentScore = extras.getString("score");
+            newScore = extras.getString("score");
             TextView score = (TextView) findViewById(R.id.score);
-            score.setText("You have " + currentScore + " out of 2 correct");
+            score.setText("You have " + newScore + " out of 2 correct");
 
             //customizes the button
             String progress = extras.getString("qnum");
             Button cont = (Button) findViewById(R.id.quiz_continue);
-            if (!progress.equalsIgnoreCase("last")) {
+            if (!lastQ) {
                 cont.setText("Next Question");
             }
 
-            //textview predefined according to the answer key
+            //text predefined according to the answer key
             //is ans1 in this case
             String yourAnswer = extras.getString("input");
             TextView correctAnswer = (TextView) findViewById(R.id.ans1);
@@ -95,20 +98,19 @@ public class AnswerActivity extends AppCompatActivity {
 
 
     //BUTTON
-    //text=next if have more questions
-    //text=finish if on last question
     public void continueQuiz(View view) {
-        //displays questions and answers
-        //keeps track of previous answers
-
-        String progress = extras.getString("qnum");
-        if (!progress.equalsIgnoreCase("last")) {
-            Intent intent = new Intent(this, Question2Activity.class);
-            intent.putExtra("score", extras.getString("score"));
+        Log.i("ANSWER_Activity", "button clicked");
+        if (lastQ) {
+            //ends quiz
+            Log.i("ANSWER_Activity", "is last q");
+            Intent intent = new Intent(this, QuizTopicActivity.class);
             startActivity(intent);
         } else {
-            //ends quiz
-            Intent intent = new Intent(this, QuizTopicActivity.class);
+            Log.i("ANSWER_Activity", "is NOT last q");
+            Intent intent = new Intent(this, Question2Activity.class);
+            Log.i("ANSWER_Activity", "created intent");
+            intent.putExtra("score", newScore);
+            Log.i("ANSWER_Activity", "set score");
             startActivity(intent);
         }
 
