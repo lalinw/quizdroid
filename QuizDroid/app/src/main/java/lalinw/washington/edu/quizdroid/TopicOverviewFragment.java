@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -38,6 +39,7 @@ public class TopicOverviewFragment extends Fragment {
                 //pass the topic and question info
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction frag = fragmentManager.beginTransaction();
+                frag.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
                 frag.replace(R.id.placeholder, new QuestionFragment());
                 frag.commit();
             }
