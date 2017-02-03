@@ -24,8 +24,8 @@ public class QuizActivity extends AppCompatActivity
             AnswerFragment.OnFragmentInteractionListener{
 
     //from last activity
-    String input;
-    String score;
+    int yourAnswer;
+    String topic;
     Bundle extras;
 
     @Override
@@ -46,11 +46,7 @@ public class QuizActivity extends AppCompatActivity
 //            //displays description, # of questions
 //            TextView quizTopic = (TextView) findViewById(R.id.topic);
 //            quizTopic.setText(message);
-//            TextView qs = (TextView) findViewById(R.id.q_amnt);
-//            qs.setText("Questions in this topic: 2");
-//        }
-
-        //Log.i("QUIZ ACTIVITY", "extras stuff happened");
+//        };
 
 
 
@@ -61,39 +57,54 @@ public class QuizActivity extends AppCompatActivity
         Log.i("QUESTION_ACTIVITY", "clicked radio button");
         // Is the button now checked?
         RadioGroup g = (RadioGroup) findViewById(R.id.answer_choice);
-            boolean checked = ((RadioButton) view).isChecked();
-            if (checked) {
-                Button submit = (Button) findViewById(R.id.answer_submit);
-                submit.setEnabled(true);
-                submit.setBackgroundColor(Color.parseColor("#FF9900"));
-            }
+        boolean checked = ((RadioButton) view).isChecked();
+        if (checked) {
+            Button submit = (Button) findViewById(R.id.answer_submit);
+            submit.setEnabled(true);
+            submit.setBackgroundColor(Color.parseColor("#FF9900"));
+        }
 
+             //Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.ans1:
+                if (checked)
+                    recordAnswer(1);
+                break;
+            case R.id.ans2:
+                if (checked)
+                    recordAnswer(2);
+                break;
+            case R.id.ans3:
+                if (checked)
+                    recordAnswer(3);
+                break;
+            case R.id.ans4:
+                if (checked )
+                    recordAnswer(4);
+                break;
+        }
 
-            // Check which radio button was clicked
-//        switch(view.getId()) {
-//            case R.id.ans1:
-//                if (checked)
-//                    input = "a";
-//                int scoreInt = Integer.parseInt(score);
-//                scoreInt++;
-//                score = "" + scoreInt;
-//                break;
-//            case R.id.ans2:
-//                if (checked)
-//                    input = "b";
-//                break;
-//            case R.id.ans3:
-//                if (checked)
-//                    input = "c";
-//                break;
-//            case R.id.ans4:
-//                if (checked)
-//                    input = "d";
-//                break;
-//        }
     }
+
+    public int yourAnswer() {
+        return yourAnswer;
+    }
+
+    public void recordAnswer(int set) {
+        yourAnswer = set;
+    }
+
+    public String currentTopic() {
+        return topic;
+    }
+    public void chosenTopic(String t) {
+        topic = t;
+    }
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
 }

@@ -30,25 +30,25 @@
                 android:id="@+id/ans1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="A"
+                android:text="A: right answer"
                 android:onClick="onRadioButtonClicked"/>
             <RadioButton
                 android:id="@+id/ans2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="B"
+                android:text="B: wrong answer"
                 android:onClick="onRadioButtonClicked"/>
             <RadioButton
                 android:id="@+id/ans3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="C"
+                android:text="C: wrong answer"
                 android:onClick="onRadioButtonClicked"/>
             <RadioButton
                 android:id="@+id/ans4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="D"
+                android:text="D: wrong answer"
                 android:onClick="onRadioButtonClicked"/>
         </RadioGroup>
 

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 
 /**
@@ -51,54 +52,10 @@ public class QuestionFragment extends Fragment {
             }
         });
 
-
-//        g.isSelected();
-//        int selected = g.getCheckedRadioButtonId();
-//        RadioButton b = (RadioButton) v.findViewById(selected);
-//        b.getText();
-//
-
-        //boolean checked = ((RadioButton) v).isSelected();;
         Log.i("QUESTION_ACTIVITY", "check button");
 
         return v;
     }
-
-//    public void onRadioButtonClicked(View view) {
-//
-//        Log.i("QUESTION_ACTIVITY", "clicked radio button");
-//        // Is the button now checked?
-//        RadioGroup g = (RadioGroup) v.findViewById(R.id.answer_choice);
-//        int checked = g.getCheckedRadioButtonId();
-//        if (checked == -1) {
-//            Button submit = (Button) v.findViewById(R.id.answer_submit);
-//            submit.setEnabled(true);
-//            submit.setBackgroundColor(Color.parseColor("#FF9900"));
-//        }
-//
-//        // Check which radio button was clicked
-////        switch(view.getId()) {
-////            case R.id.ans1:
-////                if (checked)
-////                    input = "a";
-////                int scoreInt = Integer.parseInt(score);
-////                scoreInt++;
-////                score = "" + scoreInt;
-////                break;
-////            case R.id.ans2:
-////                if (checked)
-////                    input = "b";
-////                break;
-////            case R.id.ans3:
-////                if (checked)
-////                    input = "c";
-////                break;
-////            case R.id.ans4:
-////                if (checked)
-////                    input = "d";
-////                break;
-////        }
-//    }
     ///////////////////////////////////////////////////////////
 
     // TODO: Rename parameter arguments, choose names that match

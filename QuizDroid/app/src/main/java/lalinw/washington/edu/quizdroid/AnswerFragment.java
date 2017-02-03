@@ -3,6 +3,7 @@ package lalinw.washington.edu.quizdroid;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 /**
@@ -48,6 +50,36 @@ public class AnswerFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+
+        //text predefined according to the answer key
+        //is ans1 in this case
+
+//        Bundle bundle = this.getArguments();
+//        String yourAnswer = bundle.getString("answer", "a");
+
+        TextView correctAnswer = (TextView) v.findViewById(R.id.ans1);
+        correctAnswer.setBackgroundColor(Color.parseColor("#d2ff74"));
+        int scr = 0;
+        int yourA = ((QuizActivity)getActivity()).yourAnswer();
+        if (yourA == 1) {
+            //correct answer
+            scr = 1;
+        } else if (yourA == 2) {
+            TextView yourWrongAnswer = (TextView) v.findViewById(R.id.ans2);
+            yourWrongAnswer.setBackgroundColor(Color.parseColor("#ffa69b"));
+        } else if (yourA == 3) {
+            TextView yourWrongAnswer = (TextView) v.findViewById(R.id.ans3);
+            yourWrongAnswer.setBackgroundColor(Color.parseColor("#ffa69b"));
+        } else if (yourA == 4) {
+            //choice d
+            TextView yourWrongAnswer = (TextView) v.findViewById(R.id.ans4);
+            yourWrongAnswer.setBackgroundColor(Color.parseColor("#ffa69b"));
+        }
+
+        TextView score = (TextView) v.findViewById(R.id.score);
+        score.setText("You have " + scr + " out of 1 correct");
+
         return v;
     }
 
