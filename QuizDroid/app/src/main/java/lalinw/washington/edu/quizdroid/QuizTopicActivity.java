@@ -3,6 +3,7 @@ package lalinw.washington.edu.quizdroid;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -36,9 +37,10 @@ public class QuizTopicActivity extends AppCompatActivity {
 
                 String entry = parent.getItemAtPosition(position).toString();
                 //pass in info about topic overview, amount of questions, questions, correct answers
-                Intent intent = new Intent(QuizTopicActivity.this, TopicOverviewActivity.class);
+                Intent intent = new Intent(QuizTopicActivity.this, QuizActivity.class);
                 intent.putExtra("topic", entry);
                 startActivity(intent);
+                Log.i("MAIN ACTIVITY", "open quiz activity");
             }
         });
 

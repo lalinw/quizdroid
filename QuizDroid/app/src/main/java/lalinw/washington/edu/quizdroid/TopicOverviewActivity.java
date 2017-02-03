@@ -22,15 +22,13 @@ public class TopicOverviewActivity extends AppCompatActivity {
             //displays description, # of questions
             TextView quizTopic = (TextView) findViewById(R.id.topic);
             quizTopic.setText(message);
-            TextView qs = (TextView) findViewById(R.id.q_amnt);
-            qs.setText("Questions in this topic: 2");
         }
 
     }
 
     public void beginQuiz(View view) {
         //pass the topic and question info
-        Intent intent = new Intent(this, QuestionActivity.class);
+        Intent intent = new Intent(this, QuizActivity.class);
         intent.putExtra("score", "0");
         startActivity(intent);
     }
