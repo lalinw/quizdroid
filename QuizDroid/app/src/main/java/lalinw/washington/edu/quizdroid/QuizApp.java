@@ -7,9 +7,9 @@ import android.util.Log;
 
 
 public class QuizApp extends android.app.Application implements java.io.Serializable {
-    private MyRepository instance = new MyRepository();
+    private TopicRepository instance = new TopicRepository();
 
-    public MyRepository getInstance() {
+    public TopicRepository getInstance() {
         return instance;
     }
 
@@ -22,7 +22,7 @@ public class QuizApp extends android.app.Application implements java.io.Serializ
 //        super.onCreate();
 //    }
 
-    public MyRepository getRepository() {
+    public TopicRepository getRepository() {
         return instance;
         //http://munchpress.com/singleton-vs-applicationcontext/
     }
