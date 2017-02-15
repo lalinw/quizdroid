@@ -17,21 +17,35 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 public class QuizActivity extends AppCompatActivity
         implements
             TopicOverviewFragment.OnFragmentInteractionListener,
             QuestionFragment.OnFragmentInteractionListener,
             AnswerFragment.OnFragmentInteractionListener{
 
-    //from last activity
-    int yourAnswer;
-    String topic;
-    Bundle extras;
+    private int chosenTopicIndex;
+    private int score;
+    private int progress;
+    private int yourAnswer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+        //set the topic chosen for other fragments
+        String chosenTopic = getIntent().getStringExtra("topic");
+        Log.i("QUIZ ACTIVITY", chosenTopic);
+        setTopicIndex(Integer.parseInt(chosenTopic));
+        List<Topic> data = getData();
+//        for (int i = 0; i < data.size(); i++) {
+//            if (chosenTopic.equalsIgnoreCase(data.get(i).getTopic())) {
+//                setTopicIndex(i);
+//            }
+//        }
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction frag = fragmentManager.beginTransaction();
@@ -40,23 +54,42 @@ public class QuizActivity extends AppCompatActivity
 
         Log.i("QUIZ ACTIVITY", "replaced fragment");
 
-        extras = getIntent().getExtras();
-        if (extras != null) {
-
-
-        }
-        String message = extras.getString("topic");
-        Log.i("TOPIC CHOSEN", message + " quizactivity");
-        //displays description, # of questions
-        TextView quizTopic = (TextView) findViewById(R.id.topic);
-        Log.i("TOPIC CHOSEN", message + " got quizTopic ref");
-        quizTopic.setText(message);
-        //quizTopic.setText("");
-
-
     }
 
-        public void onRadioButtonClicked(View view) {
+    public void updateScore(int i) {
+        score += i;
+    }
+    public int getScore() {
+        return score;
+    }
+    public void updateProgress(int i) {
+        progress+= i;
+    }
+    public int getProgress() {
+        return progress;
+    }
+    public void setTopicIndex(int i) {
+        chosenTopicIndex = i;
+    }
+    public int getTopicIndex() {
+        return chosenTopicIndex;
+    }
+
+    public int yourAnswer() {
+        return yourAnswer;
+    }
+
+    public void recordAnswer(int set) {
+        yourAnswer = set;
+    }
+
+    public List<Topic> getData(){
+        QuizApp app = (QuizApp)this.getApplication();
+        List<Topic> data = app.getRepository().getListOfTopics();
+        return data;
+    }
+
+    public void onRadioButtonClicked(View view) {
 
         Log.i("QUESTION_ACTIVITY", "clicked radio button");
         // Is the button now checked?
@@ -88,21 +121,6 @@ public class QuizActivity extends AppCompatActivity
                 break;
         }
 
-    }
-
-    public int yourAnswer() {
-        return yourAnswer;
-    }
-
-    public void recordAnswer(int set) {
-        yourAnswer = set;
-    }
-
-    public String currentTopic() {
-        return topic;
-    }
-    public void chosenTopic(String t) {
-        topic = t;
     }
 
     @Override

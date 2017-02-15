@@ -26,12 +26,21 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10sp"
             android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit"/>
-        <TextView
-            android:id="@+id/q_amnt"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Questions in this topic: 1"
-            android:layout_marginTop="10sp"/>
+            android:layout_marginTop="10sp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Questions in this topic: "/>
+            <TextView
+                android:id="@+id/q_amnt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/quiz_start"

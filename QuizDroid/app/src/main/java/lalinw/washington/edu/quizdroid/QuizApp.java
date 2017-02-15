@@ -25,9 +25,11 @@ public class QuizApp extends android.app.Application implements java.io.Serializ
         choices.add("cc");
         choices.add("dd");
         Quiz qs = new Quiz("what is?", choices, 2);
-        qsqs.add(0, qs);
-        data.add(0, new Topic("Math", "sdsdsdsd", "ldldldld", qsqs));
-        data.add(1, new Topic("Physics", "sdsdsdsd", "ldldldld", qsqs));
+        qsqs.add(qs);
+        data.add(new Topic("Math", "math sdsdsdsd", "ldldldld", qsqs));
+        data.add(new Topic("Physics", "physics sdsdsdsd", "ldldldld", qsqs));
+        qsqs.add(qs);
+        data.add(new Topic("Marvel", "marvel sdsdsdsd", "ldldldld", qsqs));
 
     }
 

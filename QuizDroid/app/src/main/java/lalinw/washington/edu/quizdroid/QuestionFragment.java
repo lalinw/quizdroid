@@ -16,6 +16,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,6 +55,24 @@ public class QuestionFragment extends Fragment {
         });
 
         Log.i("QUESTION_ACTIVITY", "check button");
+
+
+        List<Topic> data = ((QuizActivity)getActivity()).getData();
+        int topicIndex = ((QuizActivity)getActivity()).getTopicIndex();
+        Topic thisTopic = data.get(topicIndex);
+
+        //set the view
+        int qNumber = 0;
+        TextView question = (TextView) v.findViewById(R.id.question);
+        question.setText(thisTopic.getQuestions().get(qNumber).getQuestion());
+        TextView choiceA = (TextView) v.findViewById(R.id.ans1);
+        choiceA.setText(thisTopic.getQuestions().get(qNumber).getAnswers().get(0));
+        TextView choiceB = (TextView) v.findViewById(R.id.ans2);
+        choiceB.setText(thisTopic.getQuestions().get(qNumber).getAnswers().get(1));
+        TextView choiceC = (TextView) v.findViewById(R.id.ans3);
+        choiceC.setText(thisTopic.getQuestions().get(qNumber).getAnswers().get(2));
+        TextView choiceD = (TextView) v.findViewById(R.id.ans4);
+        choiceD.setText(thisTopic.getQuestions().get(qNumber).getAnswers().get(3));
 
         return v;
     }

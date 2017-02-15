@@ -43,7 +43,7 @@ public class QuizTopicActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
 
-                String entry = position + 1 + "";
+                String entry = position + "";
                 Log.i("TOPIC CHOSEN", entry);
                 //pass in info about topic overview, amount of questions, questions, correct answers
                 Intent intent = new Intent(QuizTopicActivity.this, QuizActivity.class);

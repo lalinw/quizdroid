@@ -1,5 +1,6 @@
 package lalinw.washington.edu.quizdroid;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.List;
 
 
 /**
@@ -44,6 +46,18 @@ public class TopicOverviewFragment extends Fragment {
                 frag.commit();
             }
         });
+        List<Topic> data = ((QuizActivity)getActivity()).getData();
+        int topicIndex = ((QuizActivity)getActivity()).getTopicIndex();
+        Topic thisTopic = data.get(topicIndex);
+
+        //set the view
+        TextView quizTopic = (TextView) v.findViewById(R.id.topic);
+        quizTopic.setText(thisTopic.getTopic());
+        TextView quizDescr = (TextView) v.findViewById(R.id.description);
+        quizDescr.setText(thisTopic.getShortDescr());
+        TextView qAmnt = (TextView) v.findViewById(R.id.q_amnt);
+        qAmnt.setText("" + thisTopic.getQuestions().size());
+
         return v;
     }
 

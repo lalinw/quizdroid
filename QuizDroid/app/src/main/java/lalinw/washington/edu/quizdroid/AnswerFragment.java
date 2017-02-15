@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.List;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,30 +57,53 @@ public class AnswerFragment extends Fragment {
         //text predefined according to the answer key
         //is ans1 in this case
 
-//        Bundle bundle = this.getArguments();
-//        String yourAnswer = bundle.getString("answer", "a");
+//        TextView correctAnswer = (TextView) v.findViewById(R.id.ans1);
+//        correctAnswer.setBackgroundColor(Color.parseColor("#d2ff74"));
+//        int scr = 0;
+//        int yourA = ((QuizActivity)getActivity()).yourAnswer();
+//        if (yourA == 1) {
+//            //correct answer
+//            scr = 1;
+//        } else if (yourA == 2) {
+//            TextView yourWrongAnswer = (TextView) v.findViewById(R.id.ans2);
+//            yourWrongAnswer.setBackgroundColor(Color.parseColor("#ffa69b"));
+//        } else if (yourA == 3) {
+//            TextView yourWrongAnswer = (TextView) v.findViewById(R.id.ans3);
+//            yourWrongAnswer.setBackgroundColor(Color.parseColor("#ffa69b"));
+//        } else if (yourA == 4) {
+//            //choice d
+//            TextView yourWrongAnswer = (TextView) v.findViewById(R.id.ans4);
+//            yourWrongAnswer.setBackgroundColor(Color.parseColor("#ffa69b"));
+//        }
 
-        TextView correctAnswer = (TextView) v.findViewById(R.id.ans1);
-        correctAnswer.setBackgroundColor(Color.parseColor("#d2ff74"));
-        int scr = 0;
-        int yourA = ((QuizActivity)getActivity()).yourAnswer();
-        if (yourA == 1) {
-            //correct answer
-            scr = 1;
-        } else if (yourA == 2) {
-            TextView yourWrongAnswer = (TextView) v.findViewById(R.id.ans2);
-            yourWrongAnswer.setBackgroundColor(Color.parseColor("#ffa69b"));
-        } else if (yourA == 3) {
-            TextView yourWrongAnswer = (TextView) v.findViewById(R.id.ans3);
-            yourWrongAnswer.setBackgroundColor(Color.parseColor("#ffa69b"));
-        } else if (yourA == 4) {
-            //choice d
-            TextView yourWrongAnswer = (TextView) v.findViewById(R.id.ans4);
-            yourWrongAnswer.setBackgroundColor(Color.parseColor("#ffa69b"));
+
+        List<Topic> data = ((QuizActivity)getActivity()).getData();
+        int topicIndex = ((QuizActivity)getActivity()).getTopicIndex();
+        Topic thisTopic = data.get(topicIndex);
+        int qNum = ((QuizActivity)getActivity()).getProgress();
+        Quiz thisQuestion = thisTopic.getQuestions().get(qNum);
+
+        //set the view
+
+        TextView question = (TextView) v.findViewById(R.id.question);
+        question.setText("(" + thisTopic.getQuestions().get(qNum).getQuestion() + ")");
+        TextView choiceA = (TextView) v.findViewById(R.id.ans1);
+        choiceA.setText(thisQuestion.getAnswers().get(0));
+        TextView choiceB = (TextView) v.findViewById(R.id.ans2);
+        choiceB.setText(thisQuestion.getAnswers().get(1));
+        TextView choiceC = (TextView) v.findViewById(R.id.ans3);
+        choiceC.setText(thisQuestion.getAnswers().get(2));
+        TextView choiceD = (TextView) v.findViewById(R.id.ans4);
+        choiceD.setText(thisQuestion.getAnswers().get(3));
+
+        int yourAnswer = ((QuizActivity)getActivity()).yourAnswer();
+        int correctAnswer = thisQuestion.getCorrectAnswer();
+        if(yourAnswer == correctAnswer) {
+            ((QuizActivity)getActivity()).updateScore(1);
         }
 
         TextView score = (TextView) v.findViewById(R.id.score);
-        score.setText("You have " + scr + " out of 1 correct");
+        score.setText("You have " + ((QuizActivity)getActivity()).getScore() + " out of " + thisTopic.getQuestions().size() + " correct.");
 
         return v;
     }
