@@ -64,7 +64,7 @@ public class QuizTopicActivity extends AppCompatActivity {
 
         // Setting the adapter to the listView
         listView.setAdapter(adapter);
-
+//http://wptrafficanalyzer.in/blog/listview-with-images-and-text-using-simple-adapter-in-android/
 
 
 
