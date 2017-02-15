@@ -54,7 +54,7 @@ public class TopicOverviewFragment extends Fragment {
         TextView quizTopic = (TextView) v.findViewById(R.id.topic);
         quizTopic.setText(thisTopic.getTopic());
         TextView quizDescr = (TextView) v.findViewById(R.id.description);
-        quizDescr.setText(thisTopic.getShortDescr());
+        quizDescr.setText(thisTopic.getLongDescr());
         TextView qAmnt = (TextView) v.findViewById(R.id.q_amnt);
         qAmnt.setText("" + thisTopic.getQuestions().size());
 
