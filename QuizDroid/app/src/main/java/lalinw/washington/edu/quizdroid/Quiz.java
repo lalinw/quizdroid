@@ -13,10 +13,13 @@ public class Quiz {
     private int correctAnswer;
 
     //temporary constructor for hard code data
-    public Quiz() {
-        setQuestion("How many days are in February this year?");
-        setAnswers("28", "29", "30", "31");
-        setCorrectAnswer(1);
+    public Quiz(String q, List<String> ans, int cAns) {
+        setQuestion(q);
+        setAnswers(ans);
+        setCorrectAnswer(cAns);
+//        setQuestion("How many days are in February this year?");
+//        setAnswers("28", "29", "30", "31");
+//        setCorrectAnswer(1);
     }
 
     //getters
@@ -35,15 +38,14 @@ public class Quiz {
         question = q;
     }
 
-    public void setAnswers(String a, String b, String c, String d){
-        answers.add(a);
-        answers.add(b);
-        answers.add(c);
-        answers.add(d);
+    public void setAnswers(List<String> ans){
+        for (int i = 0; i < ans.size(); i++) {
+            answers.add(i, ans.get(i));
+        }
     }
 
-    public void setCorrectAnswer(int ans) {
-        correctAnswer = ans;
+    public void setCorrectAnswer(int cAns) {
+        correctAnswer = cAns;
     }
 
 }

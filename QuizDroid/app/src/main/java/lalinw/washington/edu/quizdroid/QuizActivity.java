@@ -40,14 +40,18 @@ public class QuizActivity extends AppCompatActivity
 
         Log.i("QUIZ ACTIVITY", "replaced fragment");
 
-//        extras = getIntent().getExtras();
-//        if (extras != null) {
-//            String message = extras.getString("topic");
-//            //displays description, # of questions
-//            TextView quizTopic = (TextView) findViewById(R.id.topic);
-//            quizTopic.setText(message);
-//        };
+        extras = getIntent().getExtras();
+        if (extras != null) {
 
+
+        }
+        String message = extras.getString("topic");
+        Log.i("TOPIC CHOSEN", message + " quizactivity");
+        //displays description, # of questions
+        TextView quizTopic = (TextView) findViewById(R.id.topic);
+        Log.i("TOPIC CHOSEN", message + " got quizTopic ref");
+        quizTopic.setText(message);
+        //quizTopic.setText("");
 
 
     }

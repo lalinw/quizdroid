@@ -10,18 +10,26 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class QuizTopicActivity extends AppCompatActivity {
 
-    private String[] topics = new String[]{
-            "Math", "Physics", "Marvel Super Heroes", "Other stuff"
-    };
+    private List<String> topics = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_topic);
+
+        QuizApp app = (QuizApp)this.getApplication();
+        List<Topic> data = app.getRepository().getListOfTopics();
+
+        for (int i = 0; i < data.size(); i++) {
+            topics.add(data.get(i).getTopic());
+        }
 
             //ListView example code
             ListView listView = (ListView)findViewById(R.id.quizlist);
@@ -35,7 +43,8 @@ public class QuizTopicActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
 
-                String entry = parent.getItemAtPosition(position).toString();
+                String entry = position + 1 + "";
+                Log.i("TOPIC CHOSEN", entry);
                 //pass in info about topic overview, amount of questions, questions, correct answers
                 Intent intent = new Intent(QuizTopicActivity.this, QuizActivity.class);
                 intent.putExtra("topic", entry);
@@ -43,6 +52,8 @@ public class QuizTopicActivity extends AppCompatActivity {
                 Log.i("MAIN ACTIVITY", "open quiz activity");
             }
         });
+
+
 
     }
 

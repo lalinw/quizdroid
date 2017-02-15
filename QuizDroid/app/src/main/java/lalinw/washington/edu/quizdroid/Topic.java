@@ -15,14 +15,19 @@ public class Topic {
     private List<Quiz> questions = new ArrayList<Quiz>();
 
     //temp constructor for hard code stuff
-    public Topic() {
-        List<Quiz> qs = new ArrayList<Quiz>();
-        qs.add(new Quiz());
+    public Topic(String t, String sd, String ld, List<Quiz> qs) {
+//        List<Quiz> qs = new ArrayList<Quiz>();
+//        qs.add(new Quiz());
 
-        setTopic("Other stuff");
-        setShortDescr("this is short descr");
-        setLongDescr("this is looooooooonger descr");
+        setTopic(t);
+        setShortDescr(sd);
+        setLongDescr(ld);
         setQuestions(qs);
+
+//        setTopic("Other stuff");
+//        setShortDescr("this is short descr");
+//        setLongDescr("this is looooooooonger descr");
+//        setQuestions(qs);
     }
 
 
@@ -50,7 +55,10 @@ public class Topic {
         longDescr = ld;
     }
     public void setQuestions(List<Quiz> quiz) {
-        questions = quiz;
+        for (int i = 0; i < quiz.size(); i++) {
+            questions.add(i, quiz.get(i));
+        }
+        //in case the implementation is different from what is passed in
     }
 
 }
