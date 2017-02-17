@@ -27,77 +27,79 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:text="(question)"/>
+            android:text="(question)"
+            android:paddingBottom="10sp"
+            android:paddingTop="10sp"/>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="5sp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="a) "/>
             <TextView
                 android:id="@+id/ans1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="A: right snwer"/>
-            <TextView
-                android:id="@+id/ans1text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:text=""/>
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="5sp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="b) "/>
             <TextView
                 android:id="@+id/ans2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="B: wrong answer"/>
-            <TextView
-                android:id="@+id/ans2text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:text=""/>
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="5sp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="c) "/>
             <TextView
                 android:id="@+id/ans3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="C: wrong answer"/>
-            <TextView
-                android:id="@+id/ans3text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:text=""/>
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5sp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="d) "/>
             <TextView
                 android:id="@+id/ans4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:text="D: wrong answer"/>
-            <TextView
-                android:id="@+id/ans4text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="15sp"
                 android:text=""/>
         </LinearLayout>
 
@@ -107,7 +109,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:layout_marginTop="25sp"
+            android:layout_marginTop="20sp"
             android:layout_marginBottom="20sp"
             android:text="You have X out of X correct"/>
 
@@ -115,9 +117,10 @@
             android:id="@+id/quiz_continue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Finish"
+            android:text="Continue/Finish"
             android:background="#FF9900"
-            android:onClick="continueQuiz"/>
+            android:onClick="continueQuiz"
+            android:layout_marginTop="20sp"/>
 
     </LinearLayout>
 </LinearLayout>

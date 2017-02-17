@@ -62,9 +62,12 @@ public class QuestionFragment extends Fragment {
         Topic thisTopic = data.get(topicIndex);
 
         //set the view
-        int qNumber = 0;
+        int qNumber = ((QuizActivity)getActivity()).getProgress()[0];
         TextView question = (TextView) v.findViewById(R.id.question);
         question.setText(thisTopic.getQuestions().get(qNumber).getQuestion());
+        TextView qNumShow = (TextView) v.findViewById(R.id.qNum);
+        qNumShow.setText("Question " + (qNumber + 1) + ":");
+
         TextView choiceA = (TextView) v.findViewById(R.id.ans1);
         choiceA.setText(thisTopic.getQuestions().get(qNumber).getAnswers().get(0));
         TextView choiceB = (TextView) v.findViewById(R.id.ans2);

@@ -85,7 +85,7 @@ public class TopicRepository {
                             answersList.add(choices.getString(2));
                             answersList.add(choices.getString(3));
 
-                            Quiz newQuestion = new Quiz(qText, answersList, Integer.parseInt(correctAnswer));
+                            Quiz newQuestion = new Quiz(qText, answersList, Integer.parseInt(correctAnswer)-1);
                             qs.add(newQuestion);
                         }
 

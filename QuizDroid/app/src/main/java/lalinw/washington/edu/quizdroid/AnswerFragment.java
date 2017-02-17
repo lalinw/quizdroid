@@ -48,8 +48,21 @@ public class AnswerFragment extends Fragment {
 //                frag.replace(R.id.placeholder, new AnswerFragment());
 //                frag.commit();
                 Log.i("ANSWER_Activity", "is last q");
-                Intent intent = new Intent(getActivity(), QuizTopicActivity.class);
-                startActivity(intent);
+                int[] progress = ((QuizActivity)getActivity()).getProgress();
+                if (progress[0] >= progress[1] - 1) {
+                    Intent intent = new Intent(getActivity(), QuizTopicActivity.class);
+                    startActivity(intent);
+                } else {
+                    //update question number
+                    ((QuizActivity)getActivity()).updateProgress(1);
+                    //call question fragment
+                    FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction frag = fragmentManager.beginTransaction();
+                    frag.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+                    frag.replace(R.id.placeholder, new QuestionFragment());
+                    frag.commit();
+                }
+
             }
         });
 
@@ -80,13 +93,15 @@ public class AnswerFragment extends Fragment {
         List<Topic> data = ((QuizActivity)getActivity()).getData();
         int topicIndex = ((QuizActivity)getActivity()).getTopicIndex();
         Topic thisTopic = data.get(topicIndex);
-        int qNum = ((QuizActivity)getActivity()).getProgress();
+        int[] qProg = ((QuizActivity)getActivity()).getProgress();
+        int qNum = qProg[0];
         Quiz thisQuestion = thisTopic.getQuestions().get(qNum);
 
         //set the view
-
         TextView question = (TextView) v.findViewById(R.id.question);
         question.setText("(" + thisTopic.getQuestions().get(qNum).getQuestion() + ")");
+
+        //answer choices
         TextView choiceA = (TextView) v.findViewById(R.id.ans1);
         choiceA.setText(thisQuestion.getAnswers().get(0));
         TextView choiceB = (TextView) v.findViewById(R.id.ans2);
@@ -98,12 +113,36 @@ public class AnswerFragment extends Fragment {
 
         int yourAnswer = ((QuizActivity)getActivity()).yourAnswer();
         int correctAnswer = thisQuestion.getCorrectAnswer();
+
+        if (yourAnswer == 0) {
+            choiceA.setBackgroundColor(Color.parseColor("#ffa69b"));
+        } else if (yourAnswer == 1) {
+            choiceB.setBackgroundColor(Color.parseColor("#ffa69b"));
+        } else if (yourAnswer == 2) {
+            choiceC.setBackgroundColor(Color.parseColor("#ffa69b"));
+        } else {
+            choiceD.setBackgroundColor(Color.parseColor("#ffa69b"));
+        }
+
+        if (correctAnswer == 0) {
+            choiceA.setBackgroundColor(Color.parseColor("#d2ff74"));
+        }  else if (correctAnswer == 1) {
+            choiceB.setBackgroundColor(Color.parseColor("#d2ff74"));
+        }  else if (correctAnswer == 2) {
+            choiceC.setBackgroundColor(Color.parseColor("#d2ff74"));
+        }  else {
+            choiceD.setBackgroundColor(Color.parseColor("#d2ff74"));
+        }
+
+
+
+
         if(yourAnswer == correctAnswer) {
             ((QuizActivity)getActivity()).updateScore(1);
         }
 
         TextView score = (TextView) v.findViewById(R.id.score);
-        score.setText("You have " + ((QuizActivity)getActivity()).getScore() + " out of " + thisTopic.getQuestions().size() + " correct.");
+        score.setText("You have " + ((QuizActivity)getActivity()).getScore() + " out of " + qProg[1] + " correct.");
 
         return v;
     }

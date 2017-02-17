@@ -27,7 +27,7 @@ public class QuizActivity extends AppCompatActivity
 
     private int chosenTopicIndex;
     private int score;
-    private int progress;
+    private int[] progress = {0, 0};
     private int yourAnswer;
 
     @Override
@@ -38,9 +38,10 @@ public class QuizActivity extends AppCompatActivity
 
         //set the topic chosen for other fragments
         String chosenTopic = getIntent().getStringExtra("topic");
-        Log.i("QUIZ ACTIVITY", chosenTopic);
         setTopicIndex(Integer.parseInt(chosenTopic));
-        List<Topic> data = getData();
+        //update the total question number
+        setTotalProgress(getData().get(chosenTopicIndex).getQuestions().size());
+        //List<Topic> data = getData();
 
 
 //        for (int i = 0; i < data.size(); i++) {
@@ -65,9 +66,10 @@ public class QuizActivity extends AppCompatActivity
         return score;
     }
     public void updateProgress(int i) {
-        progress+= i;
+        progress[0] += i;
     }
-    public int getProgress() {
+    public void setTotalProgress(int i) { progress[1] = i; }
+    public int[] getProgress() {
         return progress;
     }
     public void setTopicIndex(int i) {
@@ -107,19 +109,19 @@ public class QuizActivity extends AppCompatActivity
         switch(view.getId()) {
             case R.id.ans1:
                 if (checked)
-                    recordAnswer(1);
+                    recordAnswer(0);
                 break;
             case R.id.ans2:
                 if (checked)
-                    recordAnswer(2);
+                    recordAnswer(1);
                 break;
             case R.id.ans3:
                 if (checked)
-                    recordAnswer(3);
+                    recordAnswer(2);
                 break;
             case R.id.ans4:
                 if (checked )
-                    recordAnswer(4);
+                    recordAnswer(3);
                 break;
         }
 
