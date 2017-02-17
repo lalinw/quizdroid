@@ -41,6 +41,8 @@ public class QuizActivity extends AppCompatActivity
         Log.i("QUIZ ACTIVITY", chosenTopic);
         setTopicIndex(Integer.parseInt(chosenTopic));
         List<Topic> data = getData();
+
+
 //        for (int i = 0; i < data.size(); i++) {
 //            if (chosenTopic.equalsIgnoreCase(data.get(i).getTopic())) {
 //                setTopicIndex(i);
