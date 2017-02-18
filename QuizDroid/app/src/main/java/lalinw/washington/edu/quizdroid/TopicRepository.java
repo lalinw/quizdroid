@@ -22,11 +22,18 @@ import java.util.ArrayList;
 public class TopicRepository {
 
     private List<Topic> topicsList = new ArrayList<Topic>();
-    private String url = "http://tednewardsandbox.site44.com/questions.json";
+    private String url;
+
 
     //constructor
     public TopicRepository() {
         //topics.add(new Topic());
+        url = "http://tednewardsandbox.site44.com/questions.json";
+        new GetData().execute();
+    }
+    public TopicRepository(String userUrl) {
+        //topics.add(new Topic());
+        url = userUrl;
         new GetData().execute();
     }
 

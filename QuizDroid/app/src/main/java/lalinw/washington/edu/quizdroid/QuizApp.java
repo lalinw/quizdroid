@@ -10,7 +10,7 @@ import java.util.List;
 public class QuizApp extends android.app.Application implements java.io.Serializable {
     private TopicRepository instance = new TopicRepository();
 //    private ProgressDialog pDialog;
-    private static String url = "http://tednewardsandbox.site44.com/questions.json";
+//    private static String url = "http://tednewardsandbox.site44.com/questions.json";
 
     public QuizApp() {
         Log.i("SINGLETON", "onCreate()");
@@ -22,5 +22,13 @@ public class QuizApp extends android.app.Application implements java.io.Serializ
         return instance;
         //http://munchpress.com/singleton-vs-applicationcontext/
     }
+
+    public TopicRepository getRepository(String url) {
+        instance = new TopicRepository(url);
+        return instance;
+        //http://munchpress.com/singleton-vs-applicationcontext/
+    }
+
+
 
 }

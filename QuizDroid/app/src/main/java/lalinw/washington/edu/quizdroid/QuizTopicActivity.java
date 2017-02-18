@@ -1,12 +1,19 @@
 package lalinw.washington.edu.quizdroid;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -22,25 +29,28 @@ public class QuizTopicActivity extends AppCompatActivity {
     private List<String> topics = new ArrayList<String>();
     private List<Integer> icons = new ArrayList<Integer>();
     private List<String> sDescr = new ArrayList<String>();
+    private QuizApp app;
+    private List<Topic> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_topic);
 
-        Log.v("STREAM", "quiztopicactivity RAN?");
+        Log.e("STREAM", "quiztopicactivity RAN?");
 
 //        http://tednewardsandbox.site44.com/questions.json
 
-        QuizApp app = (QuizApp) this.getApplication();
-        final List<Topic> data = app.getRepository().getListOfTopics();
+        app = (QuizApp) this.getApplication();
+        data = app.getRepository().getListOfTopics();
+        Log.e("current repo", data.toString());
 
         //dummy activity reload
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (data.size() < 1) {
+                if (data != app.getRepository().getListOfTopics()) {
                     recreate();
                 }
             }
@@ -93,8 +103,63 @@ public class QuizTopicActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar, menu);
 
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Take appropriate action for each action item click
+        switch (item.getItemId()) {
+            case R.id.edit_url:
+                showPreference();
+//                AlertDialog.Builder alert = new AlertDialog.Builder(this);
+//                LayoutInflater inflater = this.getLayoutInflater();
+//                //this is what I did to added the layout to the alert dialog
+//                View layout = inflater.inflate(R.layout.dialog_preference,null);
+//                alert.setView(layout);
+//                final EditText usernameInput=(EditText)layout.findViewById(R.id.edit_url);
+//                final EditText passwordInput=(EditText)layout.findViewById(R.id.freq);
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void showPreference() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_preference, null);
+        dialogBuilder.setView(dialogView);
+
+        final EditText edt_url = (EditText) dialogView.findViewById(R.id.edit_url);
+
+        dialogBuilder.setTitle("Enter your source URL");
+        dialogBuilder.setMessage("link to JSON only");
+        dialogBuilder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //do something with edt.getText().toString();
+                String newURL = edt_url.getText().toString();
+//                TopicRepository tr = new TopicRepository();
+//                tr.updateTopicRepository(newURL);
+                data = app.getRepository(newURL).getListOfTopics();
+                Log.e("current repo2", data.toString());
+                recreate();
+            }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //pass
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+    }
 
 }
 
