@@ -5,8 +5,12 @@ package lalinw.washington.edu.quizdroid;
  */
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
@@ -19,11 +23,12 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.ArrayList;
 
+import static lalinw.washington.edu.quizdroid.QuizTopicActivity.dlFailed;
+
 public class TopicRepository {
 
     private List<Topic> topicsList = new ArrayList<Topic>();
     private String url;
-
 
     //constructor
     public TopicRepository() {
@@ -45,7 +50,12 @@ public class TopicRepository {
         url = newUrl;
     }
 
+
+
+
     private class GetData extends AsyncTask<Void, Void, Void> {
+
+
 
         @Override
         protected void onPreExecute() {
@@ -63,6 +73,7 @@ public class TopicRepository {
             // Making a request to url and getting response
             String jsonStr = sh.makeServiceCall(url);
             Log.e("JSON STUFF", "Response from url: " + jsonStr);
+
 
             if (jsonStr != null) {
                 try {
@@ -105,28 +116,12 @@ public class TopicRepository {
 
                 } catch (final JSONException e) {
                     Log.e("JSON", "Json parsing error: " + e.getMessage());
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Toast.makeText(getApplicationContext(),
-//                                    "Json parsing error: " + e.getMessage(),
-//                                    Toast.LENGTH_LONG)
-//                                    .show();
-//                        }
-//                    });
+
 
                 }
             } else {
                 Log.e("JSON", "Couldn't get json from server.");
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Toast.makeText(getApplicationContext(),
-//                                "Couldn't get json from server. Check LogCat for possible errors!",
-//                                Toast.LENGTH_LONG)
-//                                .show();
-//                    }
-//                });
+                dlFailed = true;
             }
 
             return null;

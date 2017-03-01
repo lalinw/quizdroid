@@ -1,8 +1,15 @@
 package lalinw.washington.edu.quizdroid;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
+import android.os.SystemClock;
+import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,30 +38,118 @@ public class QuizTopicActivity extends AppCompatActivity {
     private List<String> sDescr = new ArrayList<String>();
     private QuizApp app;
     private List<Topic> data;
+    private String url;
+    public static boolean dlFailed = false;
+
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private static boolean isAirplaneModeOn(Context context) {
+        return Settings.System.getInt(context.getContentResolver(), Settings.System.AIRPLANE_MODE_ON, 0) != 0;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_topic);
 
+
         Log.e("STREAM", "quiztopicactivity RAN?");
 
 //        http://tednewardsandbox.site44.com/questions.json
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        if(isNetworkAvailable()) {
+            app = (QuizApp) this.getApplication();
+            data = app.getRepository().getListOfTopics();
+            Log.e("current repo", data.toString());
 
-        app = (QuizApp) this.getApplication();
-        data = app.getRepository().getListOfTopics();
-        Log.e("current repo", data.toString());
-
-        //dummy activity reload
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (data != app.getRepository().getListOfTopics()) {
-                    recreate();
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (data != app.getRepository().getListOfTopics()) {
+                        recreate();
+                    }
                 }
+            }, 1500);
+
+            Intent alarmIntent = new Intent(getApplicationContext(), AlarmReceiver.class);
+            alarmIntent.putExtra("url", url);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, alarmIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, SystemClock.elapsedRealtime(), 300000, pendingIntent);
+
+            if (dlFailed) {
+                builder.setTitle("Download has failed");
+                builder.setMessage("Unable to download the source file");
+
+                builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        dlFailed = false;
+                        showPreference();
+                    }
+                }).setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                });
+                android.app.AlertDialog dialog = builder.create();
+                dialog.show();
             }
-        }, 1500);
+            populateList();
+        } else {
+
+
+            if (isAirplaneModeOn(this)) {
+                builder.setTitle("ERROR!");
+                builder.setMessage("Seems like you are in Airplane Mode");
+
+                builder.setPositiveButton("Go to Settings", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+
+                        startActivityForResult(new Intent(android.provider.Settings.ACTION_SETTINGS), 0);
+                    }
+                }).setNegativeButton("Dismiss", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Toast.makeText(QuizTopicActivity.this, "The App cannot download the source JSON file.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                android.app.AlertDialog dialog = builder.create();
+                dialog.show();
+
+            } else {
+                builder.setTitle("ERROR!");
+                builder.setMessage("Seems like you have no connection.");
+                android.app.AlertDialog dialog = builder.create();
+                builder.setPositiveButton("Understood", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        populateList();
+                    }
+                });
+
+                dialog.show();
+                Toast.makeText(this, "Network Unavailable!", Toast.LENGTH_LONG).show();
+            }
+        }
+
+    }
+
+    public void populateList() {
 
         for (int i = 0; i < data.size(); i++) {
             topics.add(data.get(i).getTopic());
@@ -102,7 +197,6 @@ public class QuizTopicActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -145,6 +239,7 @@ public class QuizTopicActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int whichButton) {
                 //do something with edt.getText().toString();
                 String newURL = edt_url.getText().toString();
+                url = newURL;
 //                TopicRepository tr = new TopicRepository();
 //                tr.updateTopicRepository(newURL);
                 data = app.getRepository(newURL).getListOfTopics();
